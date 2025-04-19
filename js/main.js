@@ -128,19 +128,38 @@ $(function () {
 
     ***************************/
     $(document).on('click', 'a[href^="#"]', function (event) {
-        event.preventDefault();
-
-        var target = $($.attr(this, 'href'));
-        var offset = 0;
-
-        if ($(window).width() < 1200) {
-            offset = 90;
+        const targetId = $(this).attr('href');
+      
+        // Skip empty or malformed links
+        if (!targetId || targetId === "#") return;
+      
+        // Skip if it's not on the current page (multi-page site)
+        if (window.location.pathname !== this.pathname) return;
+      
+        const $target = $(targetId);
+      
+        if ($target.length) {
+          event.preventDefault(); // ✅ Only if valid scroll target found
+          const offset = $(window).width() < 1200 ? 90 : 0;
+          $('html, body').animate({ scrollTop: $target.offset().top - offset }, 400);
         }
+      });
+      
+    
+    // $(document).on('click', 'a[href^="#"]', function (event) {
+    //     event.preventDefault();
 
-        $('html, body').animate({
-            scrollTop: target.offset().top - offset
-        }, 400);
-    });
+    //     var target = $($.attr(this, 'href'));
+    //     var offset = 0;
+
+    //     if ($(window).width() < 1200) {
+    //         offset = 90;
+    //     }
+
+    //     $('html, body').animate({
+    //         scrollTop: target.offset().top - offset
+    //     }, 400);
+    // });
     /***************************
 
     append
