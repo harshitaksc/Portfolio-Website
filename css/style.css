@@ -4245,4 +4245,9 @@ html.is-animating .mil-menu-frame {
   color: white;
   margin-bottom: 16px;
 }
+@media screen and (max-width: 990px) {
+  .serviceslink {
+    display: none !important;
+  }
+}
 
